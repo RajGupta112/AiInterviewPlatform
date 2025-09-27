@@ -1,11 +1,11 @@
 import React from 'react'
 
-const page = () => {
+const AuthForm = () => {
   return (
     <div>
-      Homepage
+      
     </div>
   )
 }
 
-export default page
+export default AuthForm
