@@ -1,23 +1,39 @@
-import React from 'react'
+"use client"
 
-const FormField = () => {
+import React from "react"
+import { Control, Controller, FieldValues, Path } from "react-hook-form"
+import { FormItem, FormLabel, FormControl, FormMessage } from "./ui/form"
+import { Input } from "./ui/input"
+
+interface FormFieldProps<T extends FieldValues> {
+  control: Control<T>
+  name: Path<T>
+  label: string
+  placeholder: string
+  type?: "text" | "email" | "password" | "file"
+}
+
+function FormField<T extends FieldValues>({
+  name,
+  control,
+  label,
+  placeholder,
+  type = "text",
+}: FormFieldProps<T>) {
   return (
-      <FormField 
-     control={form.control}
-        name="username"
-     render={({field})=>(
-      <FormItem>
-        <FormLabel>UserName</FormLabel>
-        <FormControl >
-          <Input placeholder="Enter your userName" {...field}/>
-        </FormControl>
-          <FormDescription>
-                This is your public display name.
-              </FormDescription>
-
-      </FormItem>
-     )}
-     />
+    <Controller
+      name={name}
+      control={control}
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel className="label">{label}</FormLabel>
+          <FormControl>
+            <Input className="input" placeholder={placeholder} type={type} {...field} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
   )
 }
 
