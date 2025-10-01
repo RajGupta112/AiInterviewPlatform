@@ -10,3 +10,12 @@ interface Interview {
   type: string;
   finalized: boolean;
 }
+
+interface InterviewCardProps{
+  id: string;
+  userId: string;
+  role: string;
+  type: string;
+  techstack: string[];
+  createdAt: string;
+}
