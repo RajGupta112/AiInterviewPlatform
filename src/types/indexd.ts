@@ -20,6 +20,18 @@ interface InterviewCardProps{
   createdAt: string;
 }
 
+interface SignUpParams{
+  uid:string;
+  name:string;
+  email:string;
+  password:string;
+}
+
+interface SignInParams{
+  email:string;
+  idToken:string;
+}
+
 
 
 interface TechIconProps {
