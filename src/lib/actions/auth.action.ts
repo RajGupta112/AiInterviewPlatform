@@ -2,6 +2,7 @@
 
 import { db,auth } from "@/firebase/admin";
 import { Sign } from "crypto";
+import { User } from "firebase/auth";
 import { cookies } from "next/headers";
 import { id } from "zod/locales";
 
@@ -81,4 +82,34 @@ export async function signIn(params:SignInParams){
     }
    }
 
+}
+
+export async function  getCurrentUser(): Promise<User | null>{
+
+  const cookieStore= await cookies();
+
+  const  sessionCookie= cookieStore.get('session')?.value;
+
+  if(!sessionCookie) return null;
+
+   try{
+    const decodedClaims= await auth.verifySessionCookie(sessionCookie,true);
+      
+    const userRecord= await db.collection('users').doc(decodedClaims.uid).get();
+
+    if(!userRecord.exists) return null;
+
+     return {
+      ...userRecord.data(),
+      uid:decodedClaims.uid,
+     } as User;
+   }catch(e){
+    console.error("Error verifying session:", e);
+    return null;
+   }
+}
+
+export async function isAuthenticated() {
+   const user = await getCurrentUser();
+   return !!user;
 }
