@@ -45,3 +45,15 @@ interface AgentProps {
 interface TechIconProps {
   techStack: string[];
 }
+
+
+export enum TranscriptAuthor {
+  USER = 'user',
+  AI = 'ai',
+}
+
+export interface TranscriptEntry {
+  author: TranscriptAuthor;
+  text: string;
+  isFinal: boolean;
+}
